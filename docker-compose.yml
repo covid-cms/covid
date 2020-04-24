@@ -14,7 +14,7 @@ services:
       SERVICE_TAGS: dev
     working_dir: /var/www
     volumes:
-      - ../:/var/www
+      - ./:/var/www
       - ./usr/local/etc/php/conf.d/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - covid_network
@@ -28,8 +28,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ../:/var/www
-      - ./etc/nginx/conf.d/default.conf/:/etc/nginx/conf.d/default.conf
+      - ./:/var/www
+      - ./_docker/etc/nginx/conf.d/default.conf/:/etc/nginx/conf.d/default.conf
     networks:
       - covid_network
 
@@ -46,8 +46,8 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - ./var/lib/mysql:/var/lib/mysql
-      - ./etc/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./_docker/var/lib/mysql:/var/lib/mysql
+      - ./_docker/etc/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - covid_network
 

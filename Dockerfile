@@ -44,6 +44,9 @@ COPY --chown=www:www . /var/www
 # Change current user to www
 USER www
 
+RUN echo 'alias pf="/var/www/vendor/bin/phpunit --filter"' >> ~/.bashrc
+RUN echo 'alias pt="/var/www/vendor/bin/phpunit --testdox"' >> ~/.bashrc
+
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
