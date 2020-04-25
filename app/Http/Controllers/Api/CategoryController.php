@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Blog\CategoryRepository;
 use App\Http\Controllers\Controller;
 use App\Format\Blog\CategoryFormat;
-use Illuminate\Http\Request\Api;
+use App\Http\Requests\Api\Blog\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -23,7 +24,7 @@ class CategoryController extends Controller
         return response()->json($results);
     }
 
-    public function store(Api\Blog\Category\CreateRequest $request)
+    public function store(Category\CreateRequest $request)
     {
         $standardizedData = $request->standardize()->all();
         $category = $this->categoryRepo->create($standardizedData);
@@ -34,15 +35,5 @@ class CategoryController extends Controller
                 'category' => $category->format(CategoryFormat::STANDARD)
             ]
         ]);
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function delete()
-    {
-
     }
 }

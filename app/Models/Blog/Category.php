@@ -4,13 +4,17 @@ namespace App\Models\Blog;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Formattable;
-use App\Format\Blog\Category as CategoryFormat;
+use App\Format\Blog\CategoryFormat;
 
 class Category extends Model implements Formattable
 {
     protected $table = 'blog_categories';
 
     protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'title', 'slug', 'parent_id'
+    ];
 
     public function format($type)
     {

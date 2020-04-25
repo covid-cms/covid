@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'slugly' => '[a-z0-z]+'
+    'slugly' => '/^([a-z0-9-]+)$/'
 ];

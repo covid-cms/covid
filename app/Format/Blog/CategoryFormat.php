@@ -4,13 +4,14 @@ namespace App\Format\Blog;
 
 use App\Format\ModelFormat;
 use App\Models\Blog\Category;
+use Illuminate\Database\Eloquent\Model;
 
 class CategoryFormat extends ModelFormat
 {
     const LILE = 'lite';
     const STANDARD = 'standard';
 
-    public static function make($type, Category $category, array $options = [])
+    public static function format($type, Model $category, array $options = [])
     {
         if ($type == static::LILE) {
             return static::formatLite($category);
@@ -39,4 +40,3 @@ class CategoryFormat extends ModelFormat
         ];
     }
 }
-
