@@ -8,10 +8,29 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use App\Models\Blog\Category;
 use App\Format\Blog\CategoryFormat;
+use App\Models\User;
 
 class CreateCategoryTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected $accessToken = null;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->artisan('passport:install');
+
+        $user = factory(User::class)->create();
+
+        $response = $this->postJson('api/auth/login', [
+            'email' => $user->email,
+            'password' => '123123',
+        ]);
+
+        $this->accessToken = $response->baseResponse->getData()->access_token;
+    }
 
     /** @test */
     public function category_can_be_created()
@@ -21,6 +40,8 @@ class CreateCategoryTest extends TestCase
         $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
             'slug' => 'category-slug',
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
         ]);
 
         $category = Category::first();
@@ -46,6 +67,8 @@ class CreateCategoryTest extends TestCase
         $response = $this->postJson('/api/blog/categories', [
             'title' => '',
             'slug' => 'category-slug',
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
         ]);
 
         $this->assertEquals(0, Category::count());
@@ -62,6 +85,8 @@ class CreateCategoryTest extends TestCase
     {
         $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
         ]);
 
         $category = Category::first();
@@ -83,6 +108,8 @@ class CreateCategoryTest extends TestCase
         $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
             'slug' => 'Category title',
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
         ]);
 
         $category = Category::first();
@@ -105,6 +132,8 @@ class CreateCategoryTest extends TestCase
         $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
             'parent_id' => 10
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
         ]);
 
         $this->assertEquals(0, Category::count());
@@ -127,6 +156,8 @@ class CreateCategoryTest extends TestCase
     {
         $response = $this->postJson('/api/blog/categories', [
             'title' => '<h1>Category</h1> title',
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
         ]);
 
         $category = Category::first();
