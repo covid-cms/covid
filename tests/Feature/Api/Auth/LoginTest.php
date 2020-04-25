@@ -17,13 +17,13 @@ class LoginTest extends TestCase
     {
         $this->artisan('passport:install');
 
-        $this->post('api/auth/signup', [
+        $this->postJson('api/auth/signup', [
             'email' => 'email@gmail.com',
             'password' => '123123',
             'name' => 'Pham Quang Binh',
         ]);
 
-        $response = $this->post('api/auth/login', [
+        $response = $this->postJson('api/auth/login', [
             'email' => 'email@gmail.com',
             'password' => '123123'
         ]);
@@ -44,13 +44,13 @@ class LoginTest extends TestCase
     {
         $this->artisan('passport:install');
 
-        $this->post('api/auth/signup', [
+        $this->postJson('api/auth/signup', [
             'email' => 'email@gmail.com',
             'password' => '123123',
             'name' => 'Pham Quang Binh',
         ]);
 
-        $response = $this->post('api/auth/login', [
+        $response = $this->postJson('api/auth/login', [
             'email' => 'email@gmail.com',
             'password' => '1231234'
         ]);
@@ -67,7 +67,7 @@ class LoginTest extends TestCase
     {
         $this->artisan('passport:install');
 
-        $response = $this->post('api/auth/login', [
+        $response = $this->postJson('api/auth/login', [
             'email' => 'emailgmail.com',
             'password' => '123123'
         ]);
@@ -84,7 +84,7 @@ class LoginTest extends TestCase
     {
         $this->artisan('passport:install');
 
-        $response = $this->post('api/auth/login', [
+        $response = $this->postJson('api/auth/login', [
             'email' => '',
             'password' => '123123'
         ]);
@@ -101,7 +101,7 @@ class LoginTest extends TestCase
     {
         $this->artisan('passport:install');
 
-        $response = $this->post('api/auth/login', [
+        $response = $this->postJson('api/auth/login', [
             'email' => 'email@gmail.com',
             'password' => ''
         ]);

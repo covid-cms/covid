@@ -17,7 +17,7 @@ class SignupTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('api/auth/signup', [
+        $response = $this->postJson('api/auth/signup', [
             'email' => 'email@gmail.com',
             'name' => 'Pham Quang Binh',
             'password' => '123123',
@@ -37,7 +37,7 @@ class SignupTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('api/auth/signup', [
+        $response = $this->postJson('api/auth/signup', [
             'email' => '',
             'name' => 'Pham Quang Binh',
             'password' => '123123',
@@ -57,7 +57,7 @@ class SignupTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('api/auth/signup', [
+        $response = $this->postJson('api/auth/signup', [
             'email' => 'email@gmail.com',
             'name' => 'Pham Quang Binh',
             'password' => '',
@@ -77,7 +77,7 @@ class SignupTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('api/auth/signup', [
+        $response = $this->postJson('api/auth/signup', [
             'email' => 'email@gmail.com',
             'name' => 'Pham Quang Binh',
             'password' => '123',
@@ -97,13 +97,13 @@ class SignupTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->post('api/auth/signup', [
+        $this->postJson('api/auth/signup', [
             'email' => 'email@gmail.com',
             'name' => 'Pham Quang Binh',
             'password' => '123123',
         ]);
 
-        $response = $this->post('api/auth/signup', [
+        $response = $this->postJson('api/auth/signup', [
             'email' => 'email@gmail.com',
             'name' => 'Pham Quang Binh',
             'password' => '123123',
@@ -123,7 +123,7 @@ class SignupTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('api/auth/signup', [
+        $response = $this->postJson('api/auth/signup', [
             'email' => 'emailgmail.com',
             'name' => 'Pham Quang Binh',
             'password' => '123',

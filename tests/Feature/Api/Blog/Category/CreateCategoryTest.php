@@ -18,7 +18,7 @@ class CreateCategoryTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post('/api/blog/categories', [
+        $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
             'slug' => 'category-slug',
         ]);
@@ -43,7 +43,7 @@ class CreateCategoryTest extends TestCase
     /** @test */
     public function category_cannot_create_with_empty_title()
     {
-        $response = $this->post('/api/blog/categories', [
+        $response = $this->postJson('/api/blog/categories', [
             'title' => '',
             'slug' => 'category-slug',
         ]);
@@ -60,7 +60,7 @@ class CreateCategoryTest extends TestCase
     /** @test */
     public function category_slug_is_automaticly_generate_from_title()
     {
-        $response = $this->post('/api/blog/categories', [
+        $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
         ]);
 
@@ -80,7 +80,7 @@ class CreateCategoryTest extends TestCase
     /** @test */
     public function category_slug_is_slugly()
     {
-        $response = $this->post('/api/blog/categories', [
+        $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
             'slug' => 'Category title',
         ]);
@@ -102,7 +102,7 @@ class CreateCategoryTest extends TestCase
     /** @test */
     public function category_cannot_create_with_parent_is_not_exists()
     {
-        $response = $this->post('/api/blog/categories', [
+        $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
             'parent_id' => 10
         ]);
@@ -125,7 +125,7 @@ class CreateCategoryTest extends TestCase
     /** @test */
     public function category_title_cannot_include_special_characters()
     {
-        $response = $this->post('/api/blog/categories', [
+        $response = $this->postJson('/api/blog/categories', [
             'title' => '<h1>Category</h1> title',
         ]);
 
