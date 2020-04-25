@@ -13,9 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::post('storage', 'Api\StorageController@upload');
-Route::post('blog/categories', 'Api\CategoryController@store');
+
+Route::post('auth/login', 'Api\AuthController@login');
+Route::post('auth/signup', 'Api\AuthController@signup');
+
+Route::group([
+  'middleware' => 'auth:api'
+], function() {
+    Route::delete('auth/logout', 'Api\AuthController@logout');
+    Route::get('auth/me', 'Api\AuthController@user');
+
+    Route::post('storage', 'Api\StorageController@upload');
+    Route::post('blog/categories', 'Api\CategoryController@store');
+});
