@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 
 
-Route::post('auth/login', 'Api\AuthController@login');
+Route::post('auth/login', 'Api\AuthController@login')->name('login');
 Route::post('auth/signup', 'Api\AuthController@signup');
 
 Route::group([
