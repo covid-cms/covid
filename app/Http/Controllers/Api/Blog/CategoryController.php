@@ -58,4 +58,13 @@ class CategoryController extends Controller
             ]
         ]);
     }
+
+    public function destroy(Category $category)
+    {
+        $this->categoryRepo->delete($category);
+
+        return response()->json([
+            'error' => false,
+        ]);
+    }
 }
