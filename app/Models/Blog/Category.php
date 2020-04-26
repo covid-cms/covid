@@ -20,4 +20,9 @@ class Category extends Model implements Formattable
     {
         return CategoryFormat::format($type, $this);
     }
+
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class, 'blog_article_to_category', 'category_id', 'article_id');
+    }
 }
