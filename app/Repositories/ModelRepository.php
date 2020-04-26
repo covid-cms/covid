@@ -36,6 +36,7 @@ abstract class ModelRepository
         foreach ($data as $attribute => $value) {
             $object->$attribute = $value;
         }
+
         return $object->save();
     }
 

@@ -25,5 +25,7 @@ Route::group([
     Route::get('auth/me', 'Api\AuthController@user');
 
     Route::post('storage', 'Api\StorageController@upload');
-    Route::post('blog/categories', 'Api\CategoryController@store');
+
+    Route::post('blog/categories', 'Api\Blog\CategoryController@store');
+    Route::put('blog/categories/{category}', 'Api\Blog\CategoryController@update');
 });
