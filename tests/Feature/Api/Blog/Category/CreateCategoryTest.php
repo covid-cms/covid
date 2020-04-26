@@ -33,7 +33,7 @@ class CreateCategoryTest extends TestCase
     }
 
     /** @test */
-    public function category_can_be_created()
+    public function can_create_category()
     {
         $this->withoutExceptionHandling();
 
@@ -62,7 +62,7 @@ class CreateCategoryTest extends TestCase
     }
 
     /** @test */
-    public function category_cannot_create_with_empty_title()
+    public function cannot_create_category_with_empty_title()
     {
         $response = $this->postJson('/api/blog/categories', [
             'title' => '',
@@ -127,7 +127,7 @@ class CreateCategoryTest extends TestCase
     }
 
     /** @test */
-    public function category_cannot_create_with_parent_is_not_exists()
+    public function  cannot_create_category_with_parent_is_not_exists()
     {
         $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
