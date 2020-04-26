@@ -16,6 +16,7 @@ class ApiMiddlewareTest extends TestCase
     public function user_cannot_use_blog_category_resource_if_not_login()
     {
         $this->postJson('api/blog/categories', [ 'title' => 'Title' ])->assertStatus(401);
+        $this->getJson('api/blog/categories')->assertStatus(401);
 
         $category = factory(Category::class)->create();
         $this->putJson('api/blog/categories/' . $category->id, [ 'title' => 'Title' ])->assertStatus(401);

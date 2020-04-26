@@ -22,6 +22,16 @@ class CategoryFormat extends ModelFormat
         }
     }
 
+    public static function formatList($categories, $type)
+    {
+        $formatedCategories = [];
+        foreach ($categories as $category) {
+            $formatedCategories[] = $category->format($type);
+        }
+
+        return $formatedCategories;
+    }
+
     protected static function formatLite(Category $category)
     {
         return [

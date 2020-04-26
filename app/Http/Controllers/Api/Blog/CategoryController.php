@@ -20,9 +20,16 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $results = $this->categoryRepo->query($request->all())->paginate();
+        $categories = $this->categoryRepo->query($request->all())->get();
 
-        return response()->json($results);
+        $formatedCategories = CategoryFormat::formatList($categories, CategoryFormat::STANDARD);
+
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'categories' => $formatedCategories
+            ]
+        ]);
     }
 
     public function store(CategoryRequest\CreateRequest $request)
