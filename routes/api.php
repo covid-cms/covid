@@ -30,4 +30,14 @@ Route::group([
     Route::post('blog/categories', 'Api\Blog\CategoryController@store');
     Route::put('blog/categories/{category}', 'Api\Blog\CategoryController@update');
     Route::delete('blog/categories/{category}', 'Api\Blog\CategoryController@destroy');
+
+    Route::get('blog/tags', 'Api\Blog\TagController@index');
+    Route::post('blog/tags', 'Api\Blog\TagController@store');
+    Route::put('blog/tags/{category}', 'Api\Blog\TagController@update');
+    Route::delete('blog/tags/{category}', 'Api\Blog\TagController@destroy');
+
+    Route::get('blog/articles', 'Api\Blog\ArticleController@index');
+    Route::post('blog/articles', 'Api\Blog\ArticleController@store');
+    Route::put('blog/articles/{article}', 'Api\Blog\ArticleController@update');
+    Route::delete('blog/articles/{article}', 'Api\Blog\ArticleController@destroy');
 });
