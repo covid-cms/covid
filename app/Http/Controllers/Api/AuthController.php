@@ -61,7 +61,7 @@ class AuthController extends Controller
         if (!Auth::attempt($credentials)) {
             return response()->json([
                 'error' => true,
-                'message' => 'Unauthorized'
+                'message' => 'Tên tài khoản hoặc mật khẩu không chính xác'
             ]);
         }
 
@@ -77,11 +77,13 @@ class AuthController extends Controller
 
         return response()->json([
             'error' => false,
+            'user' => [
+                'id' => $user->id,
+                'email' => $user->email,
+            ],
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at
-            )->toDateTimeString()
+            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
         ]);
     }
 
