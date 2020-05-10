@@ -48,7 +48,7 @@ class CategoryRepository extends ModelRepository
         }
 
         if (!empty($data['parent_id'])) {
-            $data['parent_id'] = 0;
+            $data['parent_id'] = $data['parent_id'];
         }
 
         $category = Category::create([
@@ -102,5 +102,12 @@ class CategoryRepository extends ModelRepository
         }
 
         return $category->save();
+    }
+
+    public function delete(Model $category)
+    {
+        Category::where('parent_id', $category->id)->update(['parent_id' => 0]);
+
+        return parent::delete($category);
     }
 }
