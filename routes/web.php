@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('blog/categories/{slug}', 'Home\Blog\CategoryController@index')->name('home.blog.category');
+Route::get('blog/tags/{slug}', 'Home\Blog\TagController@index')->name('home.blog.tag');
