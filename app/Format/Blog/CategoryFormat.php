@@ -10,6 +10,7 @@ class CategoryFormat extends ModelFormat
 {
     const LILE = 'lite';
     const STANDARD = 'standard';
+    const DETAIL = 'detail';
 
     public static function format($type, Model $category, array $options = [])
     {
@@ -19,6 +20,10 @@ class CategoryFormat extends ModelFormat
 
         if ($type == static::STANDARD) {
             return static::formatStd($category);
+        }
+
+        if ($type == static::DETAIL) {
+            return static::formatDetail($category);
         }
     }
 
@@ -47,6 +52,15 @@ class CategoryFormat extends ModelFormat
             'title' => $category->title,
             'slug' => $category->slug,
             'parent_id' => $category->parent_id,
+            'meta_title' => $category->meta_title,
+            'meta_description' => $category->meta_description,
+            'description' => $category->description,
+            'thumbnail' => $category->thumbnail,
         ];
+    }
+
+    protected static function formatDetail(Category $category)
+    {
+        return $category->toArray();
     }
 }
