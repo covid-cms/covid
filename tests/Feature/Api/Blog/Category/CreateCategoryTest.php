@@ -41,6 +41,10 @@ class CreateCategoryTest extends TestCase
             'title' => 'Category title',
             'slug' => 'category-slug',
             'parent_id' => 0,
+            'meta_title' => 'Meta title',
+            'meta_description' => 'Meta description',
+            'description' => 'description',
+            'thumbnail' => 'thumbnail',
         ], [
             'Authorization' => "Bearer $this->accessToken"
         ]);
@@ -51,6 +55,10 @@ class CreateCategoryTest extends TestCase
         $this->assertEquals(0, $category->parent_id);
         $this->assertEquals('Category title', $category->title);
         $this->assertEquals('category-slug', $category->slug);
+        $this->assertEquals('Meta title', $category->meta_title);
+        $this->assertEquals('Meta description', $category->meta_description);
+        $this->assertEquals('description', $category->description);
+        $this->assertEquals('thumbnail', $category->thumbnail);
 
         $response
             ->assertStatus(200)

@@ -43,6 +43,10 @@ class UpdateTagTest extends TestCase
         $response = $this->putJson('api/blog/tags/' . $this->tag->id, [
             'title' => 'Tag title',
             'slug' => 'tag-slug',
+            'meta_title' => 'Meta title',
+            'meta_description' => 'Meta description',
+            'description' => 'description',
+            'thumbnail' => 'thumbnail',
         ], [
             'Authorization' => "Bearer $this->accessToken"
         ]);
@@ -57,6 +61,10 @@ class UpdateTagTest extends TestCase
 
         $this->assertEquals('Tag title', $tag->title);
         $this->assertEquals('tag-slug', $tag->slug);
+        $this->assertEquals('Meta title', $tag->meta_title);
+        $this->assertEquals('Meta description', $tag->meta_description);
+        $this->assertEquals('description', $tag->description);
+        $this->assertEquals('thumbnail', $tag->thumbnail);
     }
 
     /** @test */

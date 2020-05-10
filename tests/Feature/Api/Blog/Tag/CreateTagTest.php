@@ -40,6 +40,10 @@ class CreateTagTest extends TestCase
         $response = $this->postJson('/api/blog/tags', [
             'title' => 'Tag title',
             'slug' => 'tag-slug',
+            'meta_title' => 'Meta title',
+            'meta_description' => 'Meta description',
+            'description' => 'description',
+            'thumbnail' => 'thumbnail',
         ], [
             'Authorization' => "Bearer $this->accessToken"
         ]);
@@ -50,6 +54,10 @@ class CreateTagTest extends TestCase
         $this->assertEquals(0, $tag->parent_id);
         $this->assertEquals('Tag title', $tag->title);
         $this->assertEquals('tag-slug', $tag->slug);
+        $this->assertEquals('Meta title', $tag->meta_title);
+        $this->assertEquals('Meta description', $tag->meta_description);
+        $this->assertEquals('description', $tag->description);
+        $this->assertEquals('thumbnail', $tag->thumbnail);
 
         $response
             ->assertStatus(200)
