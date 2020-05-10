@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('blog/categories/{slug}', 'Home\Blog\CategoryController@index')->name('home.blog.category');
