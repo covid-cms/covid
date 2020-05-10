@@ -38,12 +38,9 @@ class TagRepository extends ModelRepository
             $data['slug'] = Str::slug($data['title']);
         }
 
-        $category = Tag::create([
-            'title' => $data['title'],
-            'slug' => $data['slug'],
-        ]);
+        $tag = Tag::create($data);
 
-        return $category;
+        return $tag;
     }
 
     protected function valiateUpdateData(array $data)
@@ -60,20 +57,36 @@ class TagRepository extends ModelRepository
         }
     }
 
-    public function update(Model $category, array $data)
+    public function update(Model $tag, array $data)
     {
         $this->valiateUpdateData($data);
 
         if (!empty($data['title'])) {
-            $category->title = $data['title'];
+            $tag->title = $data['title'];
         }
 
         if (!empty($data['slug'])) {
-            $category->slug = $data['slug'];
+            $tag->slug = $data['slug'];
         } elseif (isset($data['slug']) && empty($data['slug'])) {
-            $category->slug = Str::slug($data['slug']);
+            $tag->slug = Str::slug($data['slug']);
         }
 
-        return $category->save();
+        if (isset($data['meta_title'])) {
+            $tag->meta_title = $data['meta_title'];
+        }
+
+        if (isset($data['meta_description'])) {
+            $tag->meta_description = $data['meta_description'];
+        }
+
+        if (isset($data['thumbnail'])) {
+            $tag->thumbnail = $data['thumbnail'];
+        }
+
+        if (isset($data['description'])) {
+            $tag->description = $data['description'];
+        }
+
+        return $tag->save();
     }
 }

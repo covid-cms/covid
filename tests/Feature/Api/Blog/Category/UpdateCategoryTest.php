@@ -46,6 +46,10 @@ class UpdateCategoryTest extends TestCase
             'title' => 'Category title',
             'slug' => 'category-slug',
             'parent_id' => $this->category2->id,
+            'meta_title' => 'Meta title',
+            'meta_description' => 'Meta description',
+            'description' => 'description',
+            'thumbnail' => 'thumbnail',
         ], [
             'Authorization' => "Bearer $this->accessToken"
         ]);
@@ -60,6 +64,10 @@ class UpdateCategoryTest extends TestCase
 
         $this->assertEquals('Category title', $category->title);
         $this->assertEquals('category-slug', $category->slug);
+        $this->assertEquals('Meta title', $category->meta_title);
+        $this->assertEquals('Meta description', $category->meta_description);
+        $this->assertEquals('description', $category->description);
+        $this->assertEquals('thumbnail', $category->thumbnail);
         $this->assertEquals($this->category2->id, $category->parent_id);
     }
 

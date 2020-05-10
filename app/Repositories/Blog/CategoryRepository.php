@@ -51,11 +51,7 @@ class CategoryRepository extends ModelRepository
             $data['parent_id'] = $data['parent_id'];
         }
 
-        $category = Category::create([
-            'title' => $data['title'],
-            'slug' => $data['slug'],
-            'parent_id' => $data['parent_id']
-        ]);
+        $category = Category::create($data);
 
         return $category;
     }
@@ -99,6 +95,22 @@ class CategoryRepository extends ModelRepository
 
         if (isset($data['parent_id'])) {
             $category->parent_id = $data['parent_id'];
+        }
+
+        if (isset($data['meta_title'])) {
+            $category->meta_title = $data['meta_title'];
+        }
+
+        if (isset($data['meta_description'])) {
+            $category->meta_description = $data['meta_description'];
+        }
+
+        if (isset($data['thumbnail'])) {
+            $category->thumbnail = $data['thumbnail'];
+        }
+
+        if (isset($data['description'])) {
+            $category->description = $data['description'];
         }
 
         return $category->save();
