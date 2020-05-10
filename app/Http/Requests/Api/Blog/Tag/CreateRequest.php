@@ -23,6 +23,10 @@ class CreateRequest extends FormRequest implements Standardizable
         return collect([
             'title' => filter_var(trim($this->input('title')), FILTER_SANITIZE_STRING),
             'slug' => Str::slug($this->input('slug')),
+            'meta_title' => $this->input('meta_title'),
+            'meta_description' => $this->input('meta_description'),
+            'description' => $this->input('description'),
+            'thumbnail' => $this->input('thumbnail'),
         ]);
     }
 }

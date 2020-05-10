@@ -15,9 +15,23 @@ abstract class ModelRepository
 
     abstract protected function define();
 
-    public function find($id)
+    public function find($input)
     {
-        return $this->model::find($id);
+        if (is_array($input)) {
+            return $this->model::where($input)->first();
+        }
+
+        return $this->model::find($input);
+    }
+
+    public function findOr404($input)
+    {
+        $object = $this->find($input);
+        if (!$object) {
+            abort(404);
+        }
+
+        return $object;
     }
 
     public function create(array $data)

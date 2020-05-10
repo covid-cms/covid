@@ -12,8 +12,8 @@ class Tag extends Model implements Formattable
 
     protected $primaryKey = 'id';
 
-    protected $fillable = [
-        'title', 'slug'
+    protected $guarded = [
+        'id', 'created_at', 'updated_at',
     ];
 
     public function format($type)

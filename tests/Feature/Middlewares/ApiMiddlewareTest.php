@@ -22,6 +22,7 @@ class ApiMiddlewareTest extends TestCase
         $category = factory(Category::class)->create();
         $this->putJson('api/blog/categories/' . $category->id, [ 'title' => 'Title' ])->assertStatus(401);
         $this->deleteJson('api/blog/categories/' . $category->id)->assertStatus(401);
+        $this->getJson('api/blog/categories/' . $category->id)->assertStatus(401);
     }
 
         /** @test */

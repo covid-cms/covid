@@ -43,6 +43,6 @@ class ListTagTest extends TestCase
             'Authorization' => "Bearer $this->accessToken"
         ]);
 
-        $response->assertStatus(200)->assertJson(['error' => false]);
+        $response->assertStatus(200);
     }
 }

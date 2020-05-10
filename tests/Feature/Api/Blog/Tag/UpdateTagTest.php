@@ -57,7 +57,6 @@ class UpdateTagTest extends TestCase
 
         $this->assertEquals('Tag title', $tag->title);
         $this->assertEquals('tag-slug', $tag->slug);
-        $this->assertEquals($this->tag2->id, $tag->parent_id);
     }
 
     /** @test */

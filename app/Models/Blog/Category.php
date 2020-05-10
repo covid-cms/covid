@@ -12,8 +12,8 @@ class Category extends Model implements Formattable
 
     protected $primaryKey = 'id';
 
-    protected $fillable = [
-        'title', 'slug', 'parent_id'
+    protected $guarded = [
+        'id', 'created_at', 'updated_at',
     ];
 
     public function format($type)

@@ -32,6 +32,16 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function show(Category $category)
+    {
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'category' => $category->format(CategoryFormat::DETAIL)
+            ]
+        ]);
+    }
+
     public function store(CategoryRequest\CreateRequest $request)
     {
         $standardizedData = $request->standardize()->all();
