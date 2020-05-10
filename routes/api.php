@@ -29,12 +29,13 @@ Route::group([
     Route::get('blog/categories', 'Api\Blog\CategoryController@index');
     Route::post('blog/categories', 'Api\Blog\CategoryController@store');
     Route::put('blog/categories/{category}', 'Api\Blog\CategoryController@update');
+    Route::get('blog/categories/{category}', 'Api\Blog\CategoryController@show');
     Route::delete('blog/categories/{category}', 'Api\Blog\CategoryController@destroy');
 
     Route::get('blog/tags', 'Api\Blog\TagController@index');
     Route::post('blog/tags', 'Api\Blog\TagController@store');
-    Route::put('blog/tags/{category}', 'Api\Blog\TagController@update');
-    Route::delete('blog/tags/{category}', 'Api\Blog\TagController@destroy');
+    Route::put('blog/tags/{tag}', 'Api\Blog\TagController@update');
+    Route::delete('blog/tags/{tag}', 'Api\Blog\TagController@destroy');
 
     Route::get('blog/articles', 'Api\Blog\ArticleController@index');
     Route::post('blog/articles', 'Api\Blog\ArticleController@store');
