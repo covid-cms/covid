@@ -21,9 +21,9 @@ class CreateBlogArticlesTable extends Migration
             $table->integer('author_id');
             $table->string('status');
             $table->datetime('publish_at');
-            $table->string('thumbnail');
-            $table->string('meta_title');
-            $table->string('meta_description');
+            $table->string('thumbnail')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
             $table->timestamps();
         });
     }

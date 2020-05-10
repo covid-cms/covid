@@ -18,6 +18,10 @@ class CreateBlogCategoriesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->integer('parent_id')->default(0);
+            $table->string('description')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }
