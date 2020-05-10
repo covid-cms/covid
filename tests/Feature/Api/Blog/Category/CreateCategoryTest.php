@@ -40,6 +40,7 @@ class CreateCategoryTest extends TestCase
         $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
             'slug' => 'category-slug',
+            'parent_id' => 0,
         ], [
             'Authorization' => "Bearer $this->accessToken"
         ]);
@@ -59,6 +60,43 @@ class CreateCategoryTest extends TestCase
                     'category' => $category->format(CategoryFormat::STANDARD)
                 ]
             ]);
+    }
+
+    /** @test */
+    public function can_create_category_with_parent_id()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->postJson('/api/blog/categories', [
+            'title' => 'Category title',
+            'slug' => 'category-slug',
+            'parent_id' => 0,
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
+        ]);
+
+        $parentCategory = Category::first();
+
+        $response = $this->postJson('/api/blog/categories', [
+            'title' => 'Category title',
+            'slug' => 'category-slug',
+            'parent_id' => $parentCategory->id,
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
+        ]);
+
+        $category = Category::where('id', '!=', $parentCategory->id)->first();
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'error' => false,
+                'data' => [
+                    'category' => $category->format(CategoryFormat::STANDARD)
+                ]
+            ]);
+
+        $this->assertEquals($category->parent_id, $parentCategory->id);
     }
 
     /** @test */
