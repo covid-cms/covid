@@ -56,11 +56,14 @@ class CategoryFormat extends ModelFormat
             'meta_description' => $category->meta_description,
             'description' => $category->description,
             'thumbnail' => $category->thumbnail,
+            'public_url' => route('home.blog.category', ['slug' => $category->slug])
         ];
     }
 
     protected static function formatDetail(Category $category)
     {
-        return $category->toArray();
+        return array_merge($category->toArray(), [
+            'public_url' => route('home.blog.category', ['slug' => $category->slug])
+        ]);
     }
 }
