@@ -46,11 +46,11 @@ class TagFormat extends ModelFormat
             'id' => $tag->id,
             'title' => $tag->title,
             'slug' => $tag->slug,
-            'meta_title' => $category->meta_title,
-            'meta_description' => $category->meta_description,
-            'description' => $category->description,
-            'thumbnail' => $category->thumbnail,
-            'public_url' => route('home.blog.category', $category->slug),
+            'meta_title' => $tag->meta_title,
+            'meta_description' => $tag->meta_description,
+            'description' => $tag->description,
+            'thumbnail' => $tag->thumbnail,
+            'public_url' => route('home.blog.tag', $tag->slug),
         ];
     }
 }
