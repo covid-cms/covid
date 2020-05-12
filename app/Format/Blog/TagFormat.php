@@ -8,17 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class TagFormat extends ModelFormat
 {
-    const LILE = 'lite';
+    const LITE = 'lite';
     const STANDARD = 'standard';
+    const DETAIL = 'detail';
 
     public static function format($type, Model $tag, array $options = [])
     {
-        if ($type == static::LILE) {
+        if ($type == static::LITE) {
             return static::formatLite($tag);
         }
 
         if ($type == static::STANDARD) {
             return static::formatStd($tag);
+        }
+
+        if ($type == static::DETAIL) {
+            return static::formatDetail($tag);
         }
     }
 
@@ -52,5 +57,12 @@ class TagFormat extends ModelFormat
             'thumbnail' => $tag->thumbnail,
             'public_url' => route('home.blog.tag', $tag->slug),
         ];
+    }
+
+    protected static function formatDetail(Tag $tag)
+    {
+        return array_merge($tag->toArray(), [
+            'public_url' => route('home.blog.tag', ['slug' => $tag->slug])
+        ]);
     }
 }

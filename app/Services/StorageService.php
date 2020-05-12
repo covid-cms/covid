@@ -4,15 +4,42 @@ namespace App\Services;
 
 use Storage;
 use Illuminate\Http\UploadedFile;
+use App\Repositories\FileRepository;
 
 class StorageService
 {
+    protected $fileRepo;
+    protected $disk = null;
+
+    public function __construct(FileRepository $fileRepo)
+    {
+        $this->fileRepo = $fileRepo;
+        $this->disk = 'public';
+    }
+
+    protected function storage()
+    {
+        return Storage::disk($this->disk);
+    }
+
     public function storeUploadedFile(UploadedFile $file)
     {
-        $filename = $this->genFilename($file->getClientOriginalName());
-        $path = $this->genPath();
+        $fileHashString = md5_file($file->getRealPath());
+        $uploadedFile = $this->fileRepo->findByHash($fileHashString);
 
-        return $file->storeAs($path, $filename);
+        if (!$uploadedFile) {
+            $filename = $this->genFilename($file->getClientOriginalName());
+            $path = $this->genPath();
+
+            $this->storage()->putFileAs($path, $file, $filename);
+
+            $uploadedFile = $this->fileRepo->create([
+                'hash_string' => $fileHashString,
+                'path' => $path . '/' . $filename
+            ]);
+        }
+
+        return $uploadedFile;
     }
 
     private function genFilename($orginalFilename)
@@ -22,7 +49,7 @@ class StorageService
 
     private function genPath()
     {
-        $path = date('Y') . '/' . date('m');
+        $path = 'uploads/' . date('Y') . '/' . date('m');
 
         if (is_dir(storage_path($path))) {
             mkdir($path, 0777, true);

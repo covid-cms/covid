@@ -16,10 +16,10 @@ class CreateBlogArticleToCategory extends Migration
         Schema::create('blog_article_to_category', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id');
-            $table->integer('artcile_id');
+            $table->integer('article_id');
             $table->timestamps();
 
-            $table->index(['category_id', 'artcile_id']);
+            $table->index(['category_id', 'article_id']);
         });
     }
 

@@ -16,10 +16,10 @@ class CreateBlogArticleToTag extends Migration
         Schema::create('blog_article_to_tag', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tag_id');
-            $table->integer('artcile_id');
+            $table->integer('article_id');
             $table->timestamps();
 
-            $table->index(['tag_id', 'artcile_id']);
+            $table->index(['tag_id', 'article_id']);
         });
     }
 

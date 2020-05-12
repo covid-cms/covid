@@ -2,78 +2,60 @@
 
 namespace App\Repositories\Blog;
 
-use App\Models\Blog\Arcile;
+use App\Models\Blog\Article;
 use App\Repositories\ModelRepository;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Str;
 
-class ArcileRepository extends ModelRepository
+class ArticleRepository extends ModelRepository
 {
     protected function define()
     {
-        $this->model = Arcile::class;
+        $this->model = Article::class;
     }
 
-    protected function validateCreateData(array $data)
+    public function query(array $options = [])
     {
-        $sluglyRegex = config('regex.slugly');
+        $query = parent::query();
 
-        $validator = Validator::make($data, [
-            'title' => 'required',
-            'slug' => "nullable|regex:$sluglyRegex",
-        ]);
-
-        if ($validator->fails()) {
-            throw new ValidationException($validator);
-        }
-    }
-
-    public function create(array $data)
-    {
-        $this->validateCreateData($data);
-
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title']);
+        if (isset($options['status']) && $options['status'] != Article::STATUS_ALL) {
+            $query->where('status', $options['status']);
         }
 
-        $article = Arcile::create([
-            'title' => $data['title'],
-            'slug' => $data['slug'],
-        ]);
-
-        return $article;
-    }
-
-    protected function valiateUpdateData(array $data)
-    {
-        $sluglyRegex = config('regex.slugly');
-
-        $validator = Validator::make($data, [
-            'title' => 'sometimes|required',
-            'slug' => "nullable|regex:$sluglyRegex",
-        ]);
-
-        if ($validator->fails()) {
-            throw new ValidationException($validator);
-        }
-    }
-
-    public function update(Model $article, array $data)
-    {
-        $this->valiateUpdateData($data);
-
-        if (!empty($data['title'])) {
-            $article->title = $data['title'];
+        if (!empty($options['categories'])) {
+            $query->whereHas('categories', function ($categoryQuery) use ($options) {
+                $categoryQuery->whereIn('id', $options['categories']);
+            });
+        } elseif (!empty($options['category_id'])) {
+            $query->whereHas('categories', function ($categoryQuery) use ($options) {
+                $categoryQuery->where('id', $options['category_id']);
+            });
         }
 
-        if (!empty($data['slug'])) {
-            $article->slug = $data['slug'];
-        } elseif (isset($data['slug']) && empty($data['slug'])) {
-            $article->slug = Str::slug($data['slug']);
+        if (!empty($options['tags'])) {
+            $query->whereHas('tags', function ($categoryQuery) use ($options) {
+                $categoryQuery->whereIn('id', $options['tags']);
+            });
+        } elseif (!empty($options['tag_id'])) {
+            $query->whereHas('tags', function ($categoryQuery) use ($options) {
+                $categoryQuery->where('id', $options['tag_id']);
+            });
         }
 
-        return $article->save();
+        if (!empty($options['keyword'])) {
+            $query->where('keyword', ltrim($options['keyword'], '%') . '%');
+        }
+
+        if (!empty($options['author_id'])) {
+            $query->where('author_id', $options['author_id']);
+        }
+
+        if (!empty($options['slug'])) {
+            $query->where('slug', $options['slug']);
+        }
+
+        return $query;
     }
 }

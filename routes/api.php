@@ -19,12 +19,12 @@ Route::post('auth/login', 'Api\AuthController@login')->name('login');
 Route::post('auth/signup', 'Api\AuthController@signup');
 
 Route::group([
-  'middleware' => 'auth:api'
+  // 'middleware' => 'auth:api'
 ], function() {
     Route::delete('auth/logout', 'Api\AuthController@logout');
     Route::get('auth/me', 'Api\AuthController@user');
 
-    Route::post('storage', 'Api\StorageController@upload');
+    Route::any('storage', 'Api\StorageController@upload');
 
     Route::get('blog/categories', 'Api\Blog\CategoryController@index');
     Route::post('blog/categories', 'Api\Blog\CategoryController@store');
@@ -35,6 +35,7 @@ Route::group([
     Route::get('blog/tags', 'Api\Blog\TagController@index');
     Route::post('blog/tags', 'Api\Blog\TagController@store');
     Route::put('blog/tags/{tag}', 'Api\Blog\TagController@update');
+    Route::get('blog/tags/{tag}', 'Api\Blog\TagController@show');
     Route::delete('blog/tags/{tag}', 'Api\Blog\TagController@destroy');
 
     Route::get('blog/articles', 'Api\Blog\ArticleController@index');

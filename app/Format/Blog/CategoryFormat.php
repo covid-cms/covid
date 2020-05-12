@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryFormat extends ModelFormat
 {
-    const LILE = 'lite';
+    const LITE = 'lite';
     const STANDARD = 'standard';
     const DETAIL = 'detail';
 
     public static function format($type, Model $category, array $options = [])
     {
-        if ($type == static::LILE) {
+        if ($type == static::LITE) {
             return static::formatLite($category);
         }
 

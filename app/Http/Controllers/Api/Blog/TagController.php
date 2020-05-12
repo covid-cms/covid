@@ -20,9 +20,26 @@ class TagController extends Controller
 
     public function index(Request $request)
     {
-        $paginatedTags = $this->tagRepo->query($request->all())->paginate();
+        $tags = $this->tagRepo->query($request->all())->get();
 
-        return response()->json($paginatedTags);
+        $formatedTags = TagFormat::formatList($tags, TagFormat::STANDARD);
+
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'tags' => $formatedTags
+            ]
+        ]);
+    }
+
+    public function show(Tag $tag)
+    {
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'tag' => $tag->format(TagFormat::DETAIL)
+            ]
+        ]);
     }
 
     public function store(TagRequest\CreateRequest $request)

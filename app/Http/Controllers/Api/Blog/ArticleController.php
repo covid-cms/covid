@@ -20,7 +20,12 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $paginatedArticles = $this->articleRepo->query($request->all())->paginate();
+        $paginatedArticles = $this->articleRepo
+            ->query($request->all())
+            ->with(['categories'])
+            ->paginate();
+
+        $paginatedArticles = ArticleFormat::formatPaginate($paginatedArticles, ArticleFormat::STANDARD);
 
         return response()->json($paginatedArticles);
     }

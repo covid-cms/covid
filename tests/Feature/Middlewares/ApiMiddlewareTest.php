@@ -34,5 +34,6 @@ class ApiMiddlewareTest extends TestCase
         $tag = factory(Tag::class)->create();
         $this->putJson('api/blog/tags/' . $tag->id, [ 'title' => 'Title' ])->assertStatus(401);
         $this->deleteJson('api/blog/tags/' . $tag->id)->assertStatus(401);
+        $this->getJson('api/blog/tags/' . $tag->id)->assertStatus(401);
     }
 }

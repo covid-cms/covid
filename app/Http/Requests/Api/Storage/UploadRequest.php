@@ -19,7 +19,7 @@ class UploadRequest extends FormRequest
         $maxUploadSize = config('storage.max_upload_size');
 
         return [
-            'file' => ['image', 'required', "max:$maxUploadSize"]
+            'upload' => ['image', 'required', "max:$maxUploadSize"]
         ];
     }
 }
