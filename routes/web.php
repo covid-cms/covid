@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'Home\HomeController@index');
 
 Route::get('/admin/{any}', 'AdminController@index')->where('any', '(.*)')->name('admin');
 
