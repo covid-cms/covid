@@ -18,7 +18,6 @@ class CategoryRepository extends ModelRepository
 
     protected function validateCreateData(array $data)
     {
-        $sluglyRegex = config('regex.slugly');
         $categoryParentMustExisted = function ($attribute, $categoryId, $fail) {
             if ($categoryId) {
                 $existedCategory = Category::find($categoryId);
@@ -28,9 +27,15 @@ class CategoryRepository extends ModelRepository
             }
         };
 
+        $sluglyRegex = config('regex.slugly');
+
+        if (empty($data['slug']) && !empty($data['title'])) {
+            $data['slug'] = Str::slug($data['title']);
+        }
+
         $validator = Validator::make($data, [
             'title' => 'required',
-            'slug' => "nullable|regex:$sluglyRegex",
+            'slug' => "required|regex:$sluglyRegex|unique:blog_categories,slug",
             'parent_id' => ['nullable', 'integer', $categoryParentMustExisted]
         ]);
 
@@ -56,7 +61,7 @@ class CategoryRepository extends ModelRepository
         return $category;
     }
 
-    protected function valiateUpdateData(array $data)
+    protected function validateUpdateData(Category $category, array $data)
     {
         $sluglyRegex = config('regex.slugly');
         $categoryParentMustExisted = function ($attribute, $categoryId, $fail) {
@@ -70,8 +75,12 @@ class CategoryRepository extends ModelRepository
 
         $validator = Validator::make($data, [
             'title' => 'sometimes|required',
-            'slug' => "nullable|regex:$sluglyRegex",
-            'parent_id' => ['nullable', 'integer', $categoryParentMustExisted]
+            'slug' => "sometimes|regex:$sluglyRegex|unique:blog_categories,slug,$category->id",
+            'parent_id' => ['nullable', 'integer', $categoryParentMustExisted],
+            'meta_title' => 'sometimes|nullable',
+            'meta_description' => 'sometimes|nullable',
+            'description' => 'sometimes|nullable',
+            'thumbnail' => 'sometimes|nullable',
         ]);
 
         if ($validator->fails()) {
@@ -81,7 +90,7 @@ class CategoryRepository extends ModelRepository
 
     public function update(Model $category, array $data)
     {
-        $this->valiateUpdateData($data);
+        $this->validateUpdateData($category, $data);
 
         if (!empty($data['title'])) {
             $category->title = $data['title'];
@@ -97,19 +106,19 @@ class CategoryRepository extends ModelRepository
             $category->parent_id = $data['parent_id'];
         }
 
-        if (isset($data['meta_title'])) {
+        if (array_key_exists('meta_title', $data)) {
             $category->meta_title = $data['meta_title'];
         }
 
-        if (isset($data['meta_description'])) {
+        if (array_key_exists('meta_description', $data)) {
             $category->meta_description = $data['meta_description'];
         }
 
-        if (isset($data['thumbnail'])) {
+        if (array_key_exists('thumbnail', $data)) {
             $category->thumbnail = $data['thumbnail'];
         }
 
-        if (isset($data['description'])) {
+        if (array_key_exists('description', $data)) {
             $category->description = $data['description'];
         }
 

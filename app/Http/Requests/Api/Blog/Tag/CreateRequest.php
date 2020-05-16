@@ -13,8 +13,11 @@ class CreateRequest extends FormRequest implements Standardizable
 
     public function rules()
     {
+        $sluglyRegex = config('regex.slugly');
+
         return [
             'title' => 'required',
+            'slug' => "nullable|regex:$sluglyRegex|unique:blog_tags,slug",
         ];
     }
 

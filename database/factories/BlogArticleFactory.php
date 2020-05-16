@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 $factory->define(Article::class, function (Faker $faker) {
     $title = $faker->name;
-    $author = User::first();
+    $author = factory(User::class)->create();
 
     return [
         'title' => $title,

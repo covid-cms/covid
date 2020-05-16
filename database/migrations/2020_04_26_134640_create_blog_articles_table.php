@@ -16,11 +16,11 @@ class CreateBlogArticlesTable extends Migration
         Schema::create('blog_articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('slug');
-            $table->mediumText('content');
+            $table->string('slug')->unique();
+            $table->mediumText('content')->nullable();
             $table->integer('author_id');
             $table->string('status');
-            $table->datetime('publish_at');
+            $table->datetime('publish_at')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

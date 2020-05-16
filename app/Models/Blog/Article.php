@@ -4,9 +4,10 @@ namespace App\Models\Blog;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Format\Blog\ArticleFormat;
+use App\Models\Formattable;
 use App\Models\User;
 
-class Article extends Model
+class Article extends Model implements Formattable
 {
     const STATUS_PUBLISHED = 'published';
     const STATUS_DRAFT = 'draft';

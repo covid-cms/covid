@@ -72,7 +72,33 @@ class UpdateCategoryTest extends TestCase
     }
 
     /** @test */
-    public function cannot_update_category_with_invalid_title()
+    public function can_reset_blog_category_thumbnail_seo_description_info_to_empty()
+    {
+        $response = $this->putJson('api/blog/categories/' . $this->category->id, [
+            'meta_title' => '',
+            'meta_description' => '',
+            'description' => '',
+            'thumbnail' => '',
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
+        ]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'error' => false,
+            ]);
+
+        $category = $this->category->refresh();
+
+        $this->assertEquals('', $category->meta_title);
+        $this->assertEquals('', $category->meta_description);
+        $this->assertEquals('', $category->thumbnail);
+        $this->assertEquals('', $category->description);
+    }
+
+    /** @test */
+    public function cannot_update_blog_category_with_invalid_title()
     {
         $response = $this->putJson('api/blog/categories/' . $this->category->id, [
             'title' => '',
@@ -109,28 +135,6 @@ class UpdateCategoryTest extends TestCase
             ]);
 
         $this->assertEquals($this->category->parent_id, $category->parent_id);
-    }
-
-    /** @test */
-    public function category_slug_is_slugly()
-    {
-        $this->withoutExceptionHandling();
-
-        $response = $this->putJson('api/blog/categories/' . $this->category->id, [
-            'slug' => 'This is a not slugly',
-        ], [
-            'Authorization' => "Bearer $this->accessToken"
-        ]);
-
-        $category = Category::find($this->category->id);
-
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'error' => false,
-            ]);
-
-        $this->assertEquals('this-is-a-not-slugly', $category->slug);
     }
 
     /** @test */

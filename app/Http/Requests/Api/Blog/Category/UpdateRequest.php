@@ -25,9 +25,12 @@ class UpdateRequest extends FormRequest implements Standardizable
             }
         };
 
+        $sluglyRegex = config('regex.slugly');
+        $category = $this->route('category');
+
         return [
             'title' => 'sometimes|required',
-            'slug' => 'sometimes|required',
+            'slug' => "sometimes|regex:$sluglyRegex|unique:blog_categories,slug,$category->id",
             'parent_id' => ['nullable', 'integer', $parentIdMustExisted],
         ];
     }
@@ -36,25 +39,25 @@ class UpdateRequest extends FormRequest implements Standardizable
     {
         $standardizedData = [];
 
-        if ($this->filled('title')) {
+        if ($this->has('title')) {
             $standardizedData['title'] = filter_var(trim($this->input('title')), FILTER_SANITIZE_STRING);
         }
-        if ($this->filled('slug')) {
+        if ($this->has('slug')) {
             $standardizedData['slug'] = Str::slug($this->input('slug'));
         }
-        if ($this->filled('parent_id')) {
+        if ($this->has('parent_id')) {
             $standardizedData['parent_id'] = (int)$this->input('parent_id');
         }
-        if ($this->filled('meta_title')) {
+        if ($this->has('meta_title')) {
             $standardizedData['meta_title'] = $this->input('meta_title');
         }
-        if ($this->filled('meta_description')) {
+        if ($this->has('meta_description')) {
             $standardizedData['meta_description'] = $this->input('meta_description');
         }
-        if ($this->filled('description')) {
+        if ($this->has('description')) {
             $standardizedData['description'] = $this->input('description');
         }
-        if ($this->filled('thumbnail')) {
+        if ($this->has('thumbnail')) {
             $standardizedData['thumbnail'] = $this->input('thumbnail');
         }
 

@@ -8,6 +8,8 @@ use App\Format\Blog\TagFormat;
 use App\Http\Requests\Api\Blog\Tag as TagRequest;
 use Illuminate\Http\Request;
 use App\Models\Blog\Tag;
+use Str;
+use Illuminate\Validation\ValidationException;
 
 class TagController extends Controller
 {
@@ -20,7 +22,7 @@ class TagController extends Controller
 
     public function index(Request $request)
     {
-        $tags = $this->tagRepo->query($request->all())->get();
+        $tags = $this->tagRepo->query($request->all())->latest('id')->get();
 
         $formatedTags = TagFormat::formatList($tags, TagFormat::STANDARD);
 
@@ -45,7 +47,15 @@ class TagController extends Controller
     public function store(TagRequest\CreateRequest $request)
     {
         $standardizedData = $request->standardize()->all();
-        $tag = $this->tagRepo->create($standardizedData);
+
+        try {
+            $tag = $this->tagRepo->create($standardizedData);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'error' => true,
+                'errors' => $exception->errors(),
+            ]);
+        }
 
         return response()->json([
             'error' => false,
@@ -59,7 +69,15 @@ class TagController extends Controller
     {
         $standardizedData = $request->standardize()->all();
 
-        $this->tagRepo->update($tag, $standardizedData);
+
+        try {
+            $this->tagRepo->update($tag, $standardizedData);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'error' => true,
+                'errors' => $exception->errors(),
+            ]);
+        }
 
         return response()->json([
             'error' => false,

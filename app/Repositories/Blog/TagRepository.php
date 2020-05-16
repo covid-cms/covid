@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Str;
+use Arr;
 
 class TagRepository extends ModelRepository
 {
@@ -20,9 +21,13 @@ class TagRepository extends ModelRepository
     {
         $sluglyRegex = config('regex.slugly');
 
+        if (empty($data['slug']) && !empty($data['title'])) {
+            $data['slug'] = Str::slug($data['title']);
+        }
+
         $validator = Validator::make($data, [
-            'title' => 'required',
-            'slug' => "nullable|regex:$sluglyRegex",
+            'title' => 'required|unique:blog_tags',
+            'slug' => "required|regex:$sluglyRegex|unique:blog_tags,slug",
         ]);
 
         if ($validator->fails()) {
@@ -37,19 +42,22 @@ class TagRepository extends ModelRepository
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['title']);
         }
-
         $tag = Tag::create($data);
 
         return $tag;
     }
 
-    protected function valiateUpdateData(array $data)
+    protected function validateUpdateData(Tag $tag, array $data)
     {
         $sluglyRegex = config('regex.slugly');
 
         $validator = Validator::make($data, [
             'title' => 'sometimes|required',
-            'slug' => "nullable|regex:$sluglyRegex",
+            'slug' => "sometimes|regex:$sluglyRegex|unique:blog_tags,slug,$tag->id",
+            'meta_title' => 'sometimes|nullable',
+            'meta_description' => 'sometimes|nullable',
+            'description' => 'sometimes|nullable',
+            'thumbnail' => 'sometimes|nullable',
         ]);
 
         if ($validator->fails()) {
@@ -59,7 +67,7 @@ class TagRepository extends ModelRepository
 
     public function update(Model $tag, array $data)
     {
-        $this->valiateUpdateData($data);
+        $this->validateUpdateData($tag, $data);
 
         if (!empty($data['title'])) {
             $tag->title = $data['title'];
@@ -71,19 +79,19 @@ class TagRepository extends ModelRepository
             $tag->slug = Str::slug($data['slug']);
         }
 
-        if (isset($data['meta_title'])) {
+        if (array_key_exists('meta_title', $data)) {
             $tag->meta_title = $data['meta_title'];
         }
 
-        if (isset($data['meta_description'])) {
+        if (array_key_exists('meta_description', $data)) {
             $tag->meta_description = $data['meta_description'];
         }
 
-        if (isset($data['thumbnail'])) {
+        if (array_key_exists('thumbnail', $data)) {
             $tag->thumbnail = $data['thumbnail'];
         }
 
-        if (isset($data['description'])) {
+        if (array_key_exists('description', $data)) {
             $tag->description = $data['description'];
         }
 

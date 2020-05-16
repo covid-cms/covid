@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Format\FileFormat;
+use App\Models\Formattable;
 
-class File extends Model
+class File extends Model implements Formattable
 {
     protected $table = 'files';
 

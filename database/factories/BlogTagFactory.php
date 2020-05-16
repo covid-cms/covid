@@ -10,5 +10,9 @@ $factory->define(Tag::class, function (Faker $faker) {
     return [
         'title' => $title,
         'slug' => Str::slug($title),
+        'meta_title' => $title,
+        'meta_description' => $title,
+        'description' => $title,
+        'thumbnail' => $title,
     ];
 });

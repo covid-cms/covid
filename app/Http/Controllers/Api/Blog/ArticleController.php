@@ -8,6 +8,7 @@ use App\Format\Blog\ArticleFormat;
 use App\Http\Requests\Api\Blog\Article as ArticleRequest;
 use Illuminate\Http\Request;
 use App\Models\Blog\Article;
+use Illuminate\Validation\ValidationException;
 
 class ArticleController extends Controller
 {
@@ -23,6 +24,7 @@ class ArticleController extends Controller
         $paginatedArticles = $this->articleRepo
             ->query($request->all())
             ->with(['categories'])
+            ->latest('id')
             ->paginate();
 
         $paginatedArticles = ArticleFormat::formatPaginate($paginatedArticles, ArticleFormat::STANDARD);
@@ -30,10 +32,29 @@ class ArticleController extends Controller
         return response()->json($paginatedArticles);
     }
 
+    public function show(Article $article)
+    {
+        return response()->json([
+            'error' => false,
+            'data' => [
+                'article' => $article->format(ArticleFormat::DETAIL)
+            ]
+        ]);
+    }
+
     public function store(ArticleRequest\CreateRequest $request)
     {
         $standardizedData = $request->standardize()->all();
-        $article = $this->articleRepo->create($standardizedData);
+        $standardizedData['author_id'] = $request->user()->id;
+
+        try {
+            $article = $this->articleRepo->create($standardizedData);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'error' => true,
+                'errors' => $exception->errors(),
+            ]);
+        }
 
         return response()->json([
             'error' => false,
@@ -47,7 +68,14 @@ class ArticleController extends Controller
     {
         $standardizedData = $request->standardize()->all();
 
-        $this->articleRepo->update($article, $standardizedData);
+        try {
+            $this->articleRepo->update($article, $standardizedData);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'error' => true,
+                'errors' => $exception->errors(),
+            ]);
+        }
 
         return response()->json([
             'error' => false,

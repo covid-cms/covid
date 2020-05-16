@@ -7,8 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Format\UserFormat;
+use App\Models\Formattable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Formattable
 {
     use Notifiable;
     use HasApiTokens;

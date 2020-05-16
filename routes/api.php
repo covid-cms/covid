@@ -19,12 +19,15 @@ Route::post('auth/login', 'Api\AuthController@login')->name('login');
 Route::post('auth/signup', 'Api\AuthController@signup');
 
 Route::group([
-  // 'middleware' => 'auth:api'
+  'middleware' => 'auth:api'
 ], function() {
+    Route::get('init', 'Api\InitController@index');
+    Route::get('account', 'Api\AccountController@show');
+    Route::put('account', 'Api\AccountController@update');
+    Route::put('account/password', 'Api\AccountController@changePassword');
     Route::delete('auth/logout', 'Api\AuthController@logout');
-    Route::get('auth/me', 'Api\AuthController@user');
 
-    Route::any('storage', 'Api\StorageController@upload');
+    Route::post('storage', 'Api\StorageController@upload');
 
     Route::get('blog/categories', 'Api\Blog\CategoryController@index');
     Route::post('blog/categories', 'Api\Blog\CategoryController@store');
@@ -41,5 +44,6 @@ Route::group([
     Route::get('blog/articles', 'Api\Blog\ArticleController@index');
     Route::post('blog/articles', 'Api\Blog\ArticleController@store');
     Route::put('blog/articles/{article}', 'Api\Blog\ArticleController@update');
+    Route::get('blog/articles/{article}', 'Api\Blog\ArticleController@show');
     Route::delete('blog/articles/{article}', 'Api\Blog\ArticleController@destroy');
 });

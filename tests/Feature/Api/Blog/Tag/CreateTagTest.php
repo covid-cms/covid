@@ -51,7 +51,6 @@ class CreateTagTest extends TestCase
         $tag = Tag::first();
 
         $this->assertCount(1, Tag::all());
-        $this->assertEquals(0, $tag->parent_id);
         $this->assertEquals('Tag title', $tag->title);
         $this->assertEquals('tag-slug', $tag->slug);
         $this->assertEquals('Meta title', $tag->meta_title);
@@ -109,31 +108,6 @@ class CreateTagTest extends TestCase
                 ]
             ]);
     }
-
-    /** @test */
-    public function tag_slug_is_slugly()
-    {
-        $response = $this->postJson('/api/blog/tags', [
-            'title' => 'Tag title',
-            'slug' => 'Tag title',
-        ], [
-            'Authorization' => "Bearer $this->accessToken"
-        ]);
-
-        $tag = Tag::first();
-        $this->assertEquals('tag-title', $tag->slug);
-        $this->assertEquals(1, Tag::count());
-
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'error' => false,
-                'data' => [
-                    'tag' => $tag->format(TagFormat::STANDARD)
-                ]
-            ]);
-    }
-
 
     /** @test */
     public function tag_title_cannot_include_special_characters()

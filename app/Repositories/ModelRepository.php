@@ -34,6 +34,16 @@ abstract class ModelRepository
         return $object;
     }
 
+    public function firstOrCreate($search, array $data)
+    {
+        $object = $this->find($search);
+        if (!$object) {
+            $object = $this->create(array_merge($search, $data));
+        }
+
+        return $object;
+    }
+
     public function create(array $data)
     {
         $object = new $this->model;

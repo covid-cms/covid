@@ -68,6 +68,34 @@ class UpdateTagTest extends TestCase
     }
 
     /** @test */
+    public function can_reset_blog_tag_thumbnail_seo_description_info_to_empty()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->putJson('api/blog/tags/' . $this->tag->id, [
+            'meta_title' => '',
+            'meta_description' => '',
+            'description' => '',
+            'thumbnail' => '',
+        ], [
+            'Authorization' => "Bearer $this->accessToken"
+        ]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'error' => false,
+            ]);
+
+        $tag = $this->tag->refresh();
+
+        $this->assertEquals('', $tag->meta_title);
+        $this->assertEquals('', $tag->meta_description);
+        $this->assertEquals('', $tag->thumbnail);
+        $this->assertEquals('', $tag->description);
+    }
+
+    /** @test */
     public function cannot_update_tag_with_invalid_title()
     {
         $response = $this->putJson('api/blog/tags/' . $this->tag->id, [
@@ -85,28 +113,6 @@ class UpdateTagTest extends TestCase
             ]);
 
         $this->assertEquals($this->tag->title, $tag->title);
-    }
-
-    /** @test */
-    public function tag_slug_is_slugly()
-    {
-        $this->withoutExceptionHandling();
-
-        $response = $this->putJson('api/blog/tags/' . $this->tag->id, [
-            'slug' => 'This is a not slugly',
-        ], [
-            'Authorization' => "Bearer $this->accessToken"
-        ]);
-
-        $tag = Tag::find($this->tag->id);
-
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'error' => false,
-            ]);
-
-        $this->assertEquals('this-is-a-not-slugly', $tag->slug);
     }
 
     /** @test */

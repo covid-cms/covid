@@ -23,9 +23,12 @@ class CreateRequest extends FormRequest implements Standardizable
             }
         };
 
+        $sluglyRegex = config('regex.slugly');
+
         return [
             'title' => 'required',
-            'parent_id' => ['nullable', 'integer', $parentIdMustExisted]
+            'parent_id' => ['nullable', 'integer', $parentIdMustExisted],
+            'slug' => "nullable|regex:$sluglyRegex|unique:blog_categories,slug",
         ];
     }
 

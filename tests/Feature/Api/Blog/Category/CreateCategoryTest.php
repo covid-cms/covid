@@ -76,8 +76,7 @@ class CreateCategoryTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->postJson('/api/blog/categories', [
-            'title' => 'Category title',
-            'slug' => 'category-slug',
+            'title' => 'Parent title',
             'parent_id' => 0,
         ], [
             'Authorization' => "Bearer $this->accessToken"
@@ -87,7 +86,6 @@ class CreateCategoryTest extends TestCase
 
         $response = $this->postJson('/api/blog/categories', [
             'title' => 'Category title',
-            'slug' => 'category-slug',
             'parent_id' => $parentCategory->id,
         ], [
             'Authorization' => "Bearer $this->accessToken"
@@ -137,30 +135,6 @@ class CreateCategoryTest extends TestCase
 
         $category = Category::first();
         $this->assertEquals('category-title', $category->slug);
-
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'error' => false,
-                'data' => [
-                    'category' => $category->format(CategoryFormat::STANDARD)
-                ]
-            ]);
-    }
-
-    /** @test */
-    public function category_slug_is_slugly()
-    {
-        $response = $this->postJson('/api/blog/categories', [
-            'title' => 'Category title',
-            'slug' => 'Category title',
-        ], [
-            'Authorization' => "Bearer $this->accessToken"
-        ]);
-
-        $category = Category::first();
-        $this->assertEquals('category-title', $category->slug);
-        $this->assertEquals(1, Category::count());
 
         $response
             ->assertStatus(200)

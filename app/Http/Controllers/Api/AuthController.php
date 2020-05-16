@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use App\Format\UserFormat;
 
 class AuthController extends Controller
 {
@@ -66,7 +67,7 @@ class AuthController extends Controller
         }
 
         $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
+        $tokenResult = $user->createToken('Personal Access Token 123');
         $token = $tokenResult->token;
 
         if ($request->remember_me) {
@@ -77,10 +78,7 @@ class AuthController extends Controller
 
         return response()->json([
             'error' => false,
-            'user' => [
-                'id' => $user->id,
-                'email' => $user->email,
-            ],
+            'account' => $user->format(UserFormat::DETAIL),
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
@@ -93,10 +91,5 @@ class AuthController extends Controller
         return response()->json([
             'error' => false,
         ]);
-    }
-
-    public function user(Request $request)
-    {
-        return response()->json($request->user());
     }
 }

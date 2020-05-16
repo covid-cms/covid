@@ -23,15 +23,12 @@ class StorageController extends Controller
         return response()->json([
             'error' => false,
             'url' => url('storage/' . $uploadedFile->path),
-            // 'urls' => [
-            //     'default' => 'https://i.picsum.photos/id/126/536/354.jpg',
-            //     '800' => 'https://i.picsum.photos/id/126/800/800.jpg',
-            //     '1024' => 'https://i.picsum.photos/id/126/1024/1024.jpg',
-            //     '1920' => 'https://i.picsum.photos/id/126/1920/1920.jpg'
-            // ],
-            // 'data' => [
-            //     'uploaded_file' => $uploadedFile->format(FileFormat::STANDARD),
-            // ]
+            'urls' => [
+                'default' => url('storage/' . $uploadedFile->path),
+                '150' => url('resizes/thumbnail/storage/' . $uploadedFile->path),
+                '600' => url('resizes/medium/storage/' . $uploadedFile->path),
+                '800' => url('resizes/larage/storage/' . $uploadedFile->path),
+            ],
         ]);
     }
 }

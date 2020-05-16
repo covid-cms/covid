@@ -13,6 +13,7 @@ class ArticleFormat extends ModelFormat
 {
     const LITE = 'lite';
     const STANDARD = 'standard';
+    const DETAIL = 'detail';
 
     public static function format($type, Model $article, array $options = [])
     {
@@ -22,6 +23,10 @@ class ArticleFormat extends ModelFormat
 
         if ($type == static::STANDARD) {
             return static::formatStd($article);
+        }
+
+        if ($type == static::DETAIL) {
+            return static::formatDetail($article);
         }
     }
 
@@ -68,9 +73,31 @@ class ArticleFormat extends ModelFormat
             'categories' => CategoryFormat::formatList($article->categories, CategoryFormat::STANDARD),
             'tags' => TagFormat::formatList($article->tags, TagFormat::STANDARD),
             'author' => $article->author->format(UserFormat::LITE),
-            'publish_at' => $article->publish_at->format('Y-m-d H:i:s'),
+            'publish_at' => $article->publish_at ? $article->publish_at->format('Y-m-d H:i:s') : null,
             'created_at' => $article->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $article->updated_at->format('Y-m-d H:i:s'),
+            'public_url' => route('home.blog.article', $article->slug),
+        ];
+    }
+
+    protected static function formatDetail(Article $article)
+    {
+        return [
+            'id' => $article->id,
+            'title' => $article->title,
+            'content' => $article->content,
+            'slug' => $article->slug,
+            'meta_title' => $article->meta_title,
+            'meta_description' => $article->meta_description,
+            'thumbnail' => $article->thumbnail,
+            'status' => $article->status,
+            'categories' => CategoryFormat::formatList($article->categories, CategoryFormat::STANDARD),
+            'tags' => TagFormat::formatList($article->tags, TagFormat::STANDARD),
+            'author' => $article->author->format(UserFormat::LITE),
+            'publish_at' => $article->publish_at ? $article->publish_at->format('Y-m-d H:i:s') : null,
+            'created_at' => $article->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $article->updated_at->format('Y-m-d H:i:s'),
+            'public_url' => route('home.blog.article', $article->slug),
         ];
     }
 }

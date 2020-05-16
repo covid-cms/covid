@@ -8,6 +8,7 @@ use App\Format\Blog\CategoryFormat;
 use App\Http\Requests\Api\Blog\Category as CategoryRequest;
 use Illuminate\Http\Request;
 use App\Models\Blog\Category;
+use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -20,7 +21,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $categories = $this->categoryRepo->query($request->all())->get();
+        $categories = $this->categoryRepo->query($request->all())->latest('id')->get();
 
         $formatedCategories = CategoryFormat::formatList($categories, CategoryFormat::STANDARD);
 
@@ -45,7 +46,15 @@ class CategoryController extends Controller
     public function store(CategoryRequest\CreateRequest $request)
     {
         $standardizedData = $request->standardize()->all();
-        $category = $this->categoryRepo->create($standardizedData);
+
+        try {
+            $category = $this->categoryRepo->create($standardizedData);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'error' => true,
+                'errors' => $exception->errors(),
+            ]);
+        }
 
         return response()->json([
             'error' => false,
@@ -59,7 +68,14 @@ class CategoryController extends Controller
     {
         $standardizedData = $request->standardize()->all();
 
-        $this->categoryRepo->update($category, $standardizedData);
+        try {
+            $this->categoryRepo->update($category, $standardizedData);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'error' => true,
+                'errors' => $exception->errors(),
+            ]);
+        }
 
         return response()->json([
             'error' => false,
