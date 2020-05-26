@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Home\Blog;
 
-use App\Repositories\Blog\CategoryRepository;
+use Covid\Blog\Blog\Category as CategoryRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Blog\Category;
+use Covid\Blog\Models\Category;
 
 class CategoryController extends Controller
 {

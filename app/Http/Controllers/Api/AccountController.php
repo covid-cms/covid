@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use Auth;
 use App\Http\Controllers\Controller;
-use App\Format\UserFormat;
 use App\Http\Requests\Api\Account\ChangePasswordRequest;
 use App\Http\Requests\Api\Account\UpdateRequest;
-use App\Repositories\UserRepository;
-use Auth;
+use Covid\Base\Format\UserFormat;
+use Covid\Base\User as UserRepository;
 use Illuminate\Validation\ValidationException;
 
 class AccountController extends Controller

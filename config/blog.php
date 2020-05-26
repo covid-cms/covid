@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Blog\Article;
+use Covid\Blog\Models\Article;
 
 return [
     'article' => [

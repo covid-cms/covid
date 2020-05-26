@@ -6,9 +6,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use App\Models\Blog\Category;
-use App\Format\Blog\CategoryFormat;
-use App\Models\User;
+use Covid\Blog\Models\Category;
+use Covid\Blog\Format\CategoryFormat;
+use Covid\Base\Models\User;
 
 class ListCategoryTest extends TestCase
 {

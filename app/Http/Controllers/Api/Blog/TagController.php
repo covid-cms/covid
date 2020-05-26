@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\Blog;
 
-use App\Repositories\Blog\TagRepository;
-use App\Http\Controllers\Controller;
-use App\Format\Blog\TagFormat;
 use App\Http\Requests\Api\Blog\Tag as TagRequest;
+use App\Http\Controllers\Controller;
+use Covid\Blog\Tag as TagRepository;
+use Covid\Blog\Format\TagFormat;
+use Covid\Blog\Models\Tag;
 use Illuminate\Http\Request;
-use App\Models\Blog\Tag;
-use Str;
 use Illuminate\Validation\ValidationException;
+use Str;
 
 class TagController extends Controller
 {
@@ -22,7 +22,7 @@ class TagController extends Controller
 
     public function index(Request $request)
     {
-        $tags = $this->tagRepo->query($request->all())->latest('id')->get();
+        $tags = $this->tagRepo->query($request->all())->withCount('articles')->latest('id')->get();
 
         $formatedTags = TagFormat::formatList($tags, TagFormat::STANDARD);
 

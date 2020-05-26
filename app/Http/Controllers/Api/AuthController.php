@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Models\User;
+use Covid\Base\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
-use App\Format\UserFormat;
+use Covid\Base\Format\UserFormat;
 
 class AuthController extends Controller
 {

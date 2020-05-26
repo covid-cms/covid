@@ -6,8 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use App\Models\Blog\Category;
-use App\Models\User;
+use Covid\Blog\Models\Category;
+use Covid\Base\Models\User;
 
 class DeleteCategoryTest extends TestCase
 {

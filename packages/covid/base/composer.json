@@ -1,0 +1,29 @@
+{
+    "name": "covid/base",
+    "description": "No desc",
+    "type": "laravel-bundle",
+    "authors": [
+        {
+            "name": "Pham Binh",
+            "email": "phambinh.net@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "fruitcake/laravel-cors": "^1.0",
+        "intervention/image": "^2.5",
+        "laravel/passport": "^8.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Covid\\Base\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Covid\\Base\\ServiceProvider"
+            ]
+        }
+    }
+}

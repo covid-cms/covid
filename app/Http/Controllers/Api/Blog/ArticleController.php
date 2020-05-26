@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api\Blog;
 
-use App\Repositories\Blog\ArticleRepository;
 use App\Http\Controllers\Controller;
-use App\Format\Blog\ArticleFormat;
 use App\Http\Requests\Api\Blog\Article as ArticleRequest;
+use Covid\Blog\Article as ArticleRepository;
+use Covid\Blog\Format\ArticleFormat;
+use Covid\Blog\Models\Article;
 use Illuminate\Http\Request;
-use App\Models\Blog\Article;
 use Illuminate\Validation\ValidationException;
 
 class ArticleController extends Controller

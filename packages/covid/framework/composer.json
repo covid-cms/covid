@@ -1,0 +1,26 @@
+{
+    "name": "covid/framework",
+    "description": "No desc",
+    "type": "laravel-bundle",
+    "authors": [
+        {
+            "name": "Pham Binh",
+            "email": "phambinh.net@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Covid\\Framework\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Covid\\Framework\\ServiceProvider"
+            ]
+        }
+    }
+}

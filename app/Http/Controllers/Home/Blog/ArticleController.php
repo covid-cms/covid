@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Home\Blog;
 
-use App\Repositories\Blog\ArticleRepository;
+use Covid\Blog\Article as ArticleRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Blog\Article;
+use Covid\Blog\Models\Article;
 
 class ArticleController extends Controller
 {

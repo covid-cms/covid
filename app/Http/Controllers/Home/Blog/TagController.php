@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Home\Blog;
 
-use App\Repositories\Blog\TagRepository;
+use Covid\Blog\Blog\Tag as TagRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Blog\Tag;
+use Covid\Blog\Models\Tag;
 
 class TagController extends Controller
 {

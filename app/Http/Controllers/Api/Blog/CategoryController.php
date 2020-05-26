@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api\Blog;
 
-use App\Repositories\Blog\CategoryRepository;
 use App\Http\Controllers\Controller;
-use App\Format\Blog\CategoryFormat;
 use App\Http\Requests\Api\Blog\Category as CategoryRequest;
+use Covid\Blog\Category as CategoryRepository;
+use Covid\Blog\Format\CategoryFormat;
+use Covid\Blog\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Blog\Category;
 use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
@@ -21,7 +21,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $categories = $this->categoryRepo->query($request->all())->latest('id')->get();
+        $categories = $this->categoryRepo->query($request->all())->withCount('articles')->latest('id')->get();
 
         $formatedCategories = CategoryFormat::formatList($categories, CategoryFormat::STANDARD);
 

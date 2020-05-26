@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-use App\Models\User;
-use Validator;
-use App\Http\Controllers\Controller;
-use App\Format\UserFormat;
 use Auth;
+use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Covid\Base\Models\User;
+use Covid\Base\Format\UserFormat;
+use Validator;
+use Illuminate\Http\Request;
 
 class InitController extends Controller
 {

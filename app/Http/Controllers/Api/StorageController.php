@@ -4,21 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Storage;
-use App\Services\StorageService;
-use App\Format\FileFormat;
+use Covid\Base\Services\Storage;
+use Covid\Base\Format\FileFormat;
 
 class StorageController extends Controller
 {
-    protected $storageService;
+    protected $storage;
 
-    public function __construct(StorageService $storageService)
+    public function __construct(Storage $storage)
     {
-        $this->storageService = $storageService;
+        $this->storage = $storage;
     }
 
     public function upload(Storage\UploadRequest $request)
     {
-        $uploadedFile = $this->storageService->storeUploadedFile($request->file('upload'));
+        $uploadedFile = $this->storage->storeUploadedFile($request->file('upload'));
 
         return response()->json([
             'error' => false,

@@ -6,9 +6,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use App\Models\Blog\Tag;
-use App\Format\Blog\TagFormat;
-use App\Models\User;
+use Covid\Blog\Models\Tag;
+use Covid\Blog\Format\TagFormat;
+use Covid\Base\Models\User;
 
 class UpdateTagTest extends TestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Blog\Article;
+use Covid\Blog\Models\Article;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
-use App\Models\User;
+use Covid\Base\Models\User;
 use Carbon\Carbon;
 
 $factory->define(Article::class, function (Faker $faker) {

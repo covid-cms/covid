@@ -6,9 +6,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use App\Models\Blog\Category;
-use App\Models\Blog\Tag;
-use App\Models\Blog\Article;
+use Covid\Blog\Models\Category;
+use Covid\Blog\Models\Tag;
+use Covid\Blog\Models\Article;
 
 class ApiMiddlewareTest extends TestCase
 {

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\Standardizable;
 use App\Http\Requests\ResponseJsonOnFail;
 use Str;
-use App\Models\Blog\Category;
+use Covid\Blog\Models\Category;
 
 class UpdateRequest extends FormRequest implements Standardizable
 {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Blog\Tag;
+use Covid\Blog\Models\Tag;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 

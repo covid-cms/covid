@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Blog\Category;
+use Covid\Blog\Models\Category;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
