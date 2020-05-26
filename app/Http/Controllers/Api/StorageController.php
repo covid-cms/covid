@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Storage;
-use Covid\Base\Services\Storage;
+use App\Http\Requests\Api\Storage as StorageRequest;
+use Covid\Base\Storage;
 use Covid\Base\Format\FileFormat;
 
 class StorageController extends Controller
@@ -16,7 +16,7 @@ class StorageController extends Controller
         $this->storage = $storage;
     }
 
-    public function upload(Storage\UploadRequest $request)
+    public function upload(StorageRequest\UploadRequest $request)
     {
         $uploadedFile = $this->storage->storeUploadedFile($request->file('upload'));
 

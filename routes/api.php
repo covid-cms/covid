@@ -46,4 +46,6 @@ Route::group([
     Route::put('blog/articles/{article}', 'Api\Blog\ArticleController@update');
     Route::get('blog/articles/{article}', 'Api\Blog\ArticleController@show');
     Route::delete('blog/articles/{article}', 'Api\Blog\ArticleController@destroy');
+
+    Route::get('blog/statistic/article', 'Api\Blog\StatisticController@article');
 });

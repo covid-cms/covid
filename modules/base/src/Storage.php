@@ -4,7 +4,7 @@ namespace Covid\Base;
 
 use Storage as LaravelStorage;
 use Illuminate\Http\UploadedFile;
-use Covid\Base\File as FileRepository;
+use Covid\Base\FileRepository;
 
 class Storage
 {
