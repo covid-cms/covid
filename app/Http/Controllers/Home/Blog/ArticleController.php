@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Home\Blog;
 
-use Covid\Blog\Article as ArticleRepository;
+use Covid\Blog\ArticleRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Covid\Blog\Models\Article;

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 use Validator;
 
-class User extends Repository
+class UserRepository extends Repository
 {
     protected function define()
     {

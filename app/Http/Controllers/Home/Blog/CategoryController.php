@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Home\Blog;
 
-use Covid\Blog\Blog\Category as CategoryRepository;
+use Covid\Blog\Blog\CategoryRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Covid\Blog\Models\Category;

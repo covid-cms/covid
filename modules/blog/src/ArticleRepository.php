@@ -10,7 +10,7 @@ use Validator;
 use Str;
 use Arr;
 
-class Article extends Repository
+class ArticleRepository extends Repository
 {
     protected function define()
     {

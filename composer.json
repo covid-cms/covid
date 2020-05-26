@@ -64,15 +64,15 @@
     "repositories": [
         {
           "type": "path",
-          "url": "packages/covid/framework"
+          "url": "modules/framework"
         },
         {
           "type": "path",
-          "url": "packages/covid/base"
+          "url": "modules/base"
         },
         {
           "type": "path",
-          "url": "packages/covid/blog"
+          "url": "modules/blog"
         }
     ]
 }

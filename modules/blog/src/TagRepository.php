@@ -10,7 +10,7 @@ use Validator;
 use Str;
 use Arr;
 
-class Tag extends Repository
+class TagRepository extends Repository
 {
     protected function define()
     {

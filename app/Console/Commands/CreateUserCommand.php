@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Validator;
-use Covid\Base\Models\User;
-use Covid\Base\User as UserRepository;
+use Covid\Base\UserRepository;
+
 use Hash;
 
 class CreateUserCommand extends Command

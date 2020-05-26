@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Str;
 
-class Category extends Repository
+class CategoryRepository extends Repository
 {
     protected function define()
     {

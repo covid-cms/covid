@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Blog\Category as CategoryRequest;
-use Covid\Blog\Category as CategoryRepository;
+use Covid\Blog\CategoryRepository;
 use Covid\Blog\Format\CategoryFormat;
 use Covid\Blog\Models\Category;
 use Illuminate\Http\Request;

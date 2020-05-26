@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Blog;
 
 use App\Http\Requests\Api\Blog\Tag as TagRequest;
 use App\Http\Controllers\Controller;
-use Covid\Blog\Tag as TagRepository;
+use Covid\Blog\TagRepository;
 use Covid\Blog\Format\TagFormat;
 use Covid\Blog\Models\Tag;
 use Illuminate\Http\Request;

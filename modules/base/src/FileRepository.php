@@ -6,7 +6,7 @@ use Covid\Base\Models\File as FileModel;
 use Covid\Framework\Model\Repository;
 use Storage;
 
-class File extends Repository
+class FileRepository extends Repository
 {
     protected function define()
     {

@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Account\ChangePasswordRequest;
 use App\Http\Requests\Api\Account\UpdateRequest;
 use Covid\Base\Format\UserFormat;
-use Covid\Base\User as UserRepository;
+use Covid\Base\UserRepository;
+
 use Illuminate\Validation\ValidationException;
 
 class AccountController extends Controller

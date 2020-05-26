@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Home\Blog;
 
-use Covid\Blog\Blog\Tag as TagRepository;
+use Covid\Blog\Blog\TagRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Covid\Blog\Models\Tag;
