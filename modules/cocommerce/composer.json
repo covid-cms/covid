@@ -1,0 +1,26 @@
+{
+    "name": "covid/cocommerce",
+    "description": "No desc",
+    "type": "laravel-bundle",
+    "authors": [
+        {
+            "name": "Pham Binh",
+            "email": "phambinh.net@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Covid\\Cocommerce\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Covid\\Cocommerce\\ServiceProvider"
+            ]
+        }
+    }
+}
